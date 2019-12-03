@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lijp.muban.mapper.BlogArticleRefMapper">
+  <resultMap id="BaseResultMap" type="com.lijp.muban.dao.BlogArticleRefKey">
+    <id column="category_id" jdbcType="DECIMAL" property="categoryId" />
+    <id column="article_id" jdbcType="DECIMAL" property="articleId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.lijp.muban.dao.BlogArticleRefKey">
+    delete from category_article_ref
+    where category_id = #{categoryId,jdbcType=DECIMAL}
+      and article_id = #{articleId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.lijp.muban.dao.BlogArticleRefKey">
+    insert into category_article_ref (category_id, article_id)
+    values (#{categoryId,jdbcType=DECIMAL}, #{articleId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lijp.muban.dao.BlogArticleRefKey">
+    insert into category_article_ref
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="articleId != null">
+        article_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=DECIMAL},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

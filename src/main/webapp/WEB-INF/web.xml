@@ -1,0 +1,64 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee" xmlns:mvc="http://www.springframework.org/schema/mvc"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+     <!--post乱码过滤器-->
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <!-- 设置过滤器中的属性值 -->
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <!-- 启动过滤器 -->
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <!-- 过滤所有请求 -->
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+    <!--contextConfigLocation  装载与数据库事务相关的配置文件-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+      classpath:spring/application.xml,classpath:spring/spring-*.xml
+    </param-value>
+  </context-param>
+
+  <!--配置监听器，容器启动时自动装配application-->
+   <listener>
+     <listener-class>
+       org.springframework.web.context.ContextLoaderListener
+     </listener-class>
+   </listener>
+<!--   dispatcher-servlet里面配置application是初始化dispatcher要用的，比如扫描主键将实例加载到hashmap容器中，生成请求路径 -->
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+     <!-- 自定义application配置文件位置，不配置位置默认搜索web-inf文件夹底下的application -->
+<!--      加载配置文件：扫描注解，启动注解驱动，视图解析器，静态资源配置是为了初始化dispatcher-servlet配置文件-->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+       <param-value>classpath:spring/application.xml,classpath:spring/spring-*.xml</param-value>
+    </init-param>
+    <!--当值为0或者大于0时，表示容器在应用启动时就加载并初始化这个servlet。当值小于0或者没有指定时，则表示容器在该servlet被选择时才会去加载。。-->  
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+	  <!-- /不会拦截后缀.jsp的请求，/*拦截所有请求 -->
+	  <servlet-mapping>
+	    <servlet-name>dispatcher</servlet-name>
+	    <url-pattern>/</url-pattern>
+	  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>/index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
+  

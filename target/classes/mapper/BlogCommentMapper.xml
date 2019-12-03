@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lijp.muban.mapper.BlogCommentMapper">
+  <resultMap id="BaseResultMap" type="com.lijp.muban.dao.BlogComment">
+    <id column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="article_id" jdbcType="DECIMAL" property="articleId" />
+    <result column="comment_pid" jdbcType="DECIMAL" property="commentPid" />
+    <result column="comment_pname" jdbcType="VARCHAR" property="commentPname" />
+    <result column="comment_author_name" jdbcType="VARCHAR" property="commentAuthorName" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="comment_createtime" jdbcType="TIMESTAMP" property="commentCreatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    comment_id, article_id, comment_pid, comment_pname, comment_author_name, comment_content, 
+    comment_createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  
+  
+    <select id="selectComment" parameterType="com.lijp.muban.dao.BlogComment" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_comment
+	<where>
+	<if test="commentId !=null and commentId != ''">comment_id=#{commentId}</if>
+	<if test="articleId !=null and articleId != ''">and article_id=#{articleId}</if>
+	</where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lijp.muban.dao.BlogComment">
+    insert into blog_comment (comment_id, article_id, comment_pid, 
+      comment_pname, comment_author_name, comment_content, 
+      comment_createtime)
+    values (#{commentId,jdbcType=INTEGER}, #{articleId,jdbcType=DECIMAL}, #{commentPid,jdbcType=DECIMAL}, 
+      #{commentPname,jdbcType=VARCHAR}, #{commentAuthorName,jdbcType=VARCHAR}, #{commentContent,jdbcType=VARCHAR}, 
+      #{commentCreatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lijp.muban.dao.BlogComment">
+    insert into blog_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="commentPid != null">
+        comment_pid,
+      </if>
+      <if test="commentPname != null">
+        comment_pname,
+      </if>
+      <if test="commentAuthorName != null">
+        comment_author_name,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+      <if test="commentCreatetime != null">
+        comment_createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=DECIMAL},
+      </if>
+      <if test="commentPid != null">
+        #{commentPid,jdbcType=DECIMAL},
+      </if>
+      <if test="commentPname != null">
+        #{commentPname,jdbcType=VARCHAR},
+      </if>
+      <if test="commentAuthorName != null">
+        #{commentAuthorName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCreatetime != null">
+        #{commentCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lijp.muban.dao.BlogComment">
+    update blog_comment
+    <set>
+      <if test="articleId != null">
+        article_id = #{articleId,jdbcType=DECIMAL},
+      </if>
+      <if test="commentPid != null">
+        comment_pid = #{commentPid,jdbcType=DECIMAL},
+      </if>
+      <if test="commentPname != null">
+        comment_pname = #{commentPname,jdbcType=VARCHAR},
+      </if>
+      <if test="commentAuthorName != null">
+        comment_author_name = #{commentAuthorName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCreatetime != null">
+        comment_createtime = #{commentCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lijp.muban.dao.BlogComment">
+    update blog_comment
+    set article_id = #{articleId,jdbcType=DECIMAL},
+      comment_pid = #{commentPid,jdbcType=DECIMAL},
+      comment_pname = #{commentPname,jdbcType=VARCHAR},
+      comment_author_name = #{commentAuthorName,jdbcType=VARCHAR},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      comment_createtime = #{commentCreatetime,jdbcType=TIMESTAMP}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  
+   <select id="countComment" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   select count(*) from blog_comment
+   <where><if test="articleId !=null and articleId !=''">article_id=#{articleId}</if></where>
+   </select>
+</mapper>

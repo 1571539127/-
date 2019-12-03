@@ -1,0 +1,105 @@
+
+.PermissionsInfo_querybox{
+    overflow: hidden;
+    background-color: white;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.PermissionsInfo_querybg{
+    color: white;
+    font-weight: 700;
+    background-color:  #3c8dbc
+}
+  
+.PermissionsInfo_btn{
+    margin-bottom: 10px;
+}
+table.post_manage_datatablelast_tdflex td:last-child{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+  }
+.PermissionsInfo_querybtn_box{
+      display: flex;
+      flex-wrap:nowrap; 
+  } 
+
+  #unit_tag_Manager_dataTree{
+      overflow: hidden;
+  }
+
+   #unit_tag_Manager_tableMain .ztree *{
+    font-family: "微软雅黑","宋体",Arial, "Times New Roman", Times, serif;
+   }
+   #unit_tag_Manager_tableMain .ztree {
+    padding: 0;
+    border-left: 1px solid #E3E3E3;
+    border-right: 1px solid #E3E3E3;
+    border-bottom: 1px solid #E3E3E3;
+   }
+   #unit_tag_Manager_tableMain .ztree li a {
+    vertical-align: middle;
+    height: 45px;
+    padding: 0px;
+   }
+   #unit_tag_Manager_tableMain .ztree li > a {
+    width: 100%;
+   }
+   #unit_tag_Manager_tableMain .ztree li a.curSelectedNode {
+    padding-top: 0px;
+    background-color: #FFE6B0;
+    border: 1px #FFB951 solid;
+    opacity: 1;
+    height: 45px;
+   }
+   #unit_tag_Manager_tableMain .ztree li ul {
+    padding-left: 0px
+   }
+   #unit_tag_Manager_tableMain .ztree div.divTd span {
+    line-height: 43px;
+    vertical-align: middle;
+   }
+   #unit_tag_Manager_tableMain .ztree div.divTd {
+    height: 100%;
+    line-height: 43px;
+    border-top: 1px solid #E3E3E3;
+    border-left: 1px solid #E3E3E3;
+    text-align: center;
+    display: inline-block;
+    color: #6c6c6c;
+    overflow: hidden;
+   }
+   #unit_tag_Manager_tableMain .ztree div.divTd:first-child {
+    text-align: left;
+    text-indent: 10px;
+    border-left: none;
+   }
+   /* #unit_tag_Manager_tableMain .ztree .head {
+    background: #E8EFF5;
+   } */
+   #unit_tag_Manager_tableMain .ztree .head div.divTd {
+    color: #393939;
+    font-weight: bold;
+   }
+   #unit_tag_Manager_tableMain .ztree .ck{
+    padding: 0 5px;
+    margin: 2px 3px 7px 3px;
+   }
+   #unit_tag_Manager_dataTree li:nth-child(odd){
+    background-color:#F5FAFA;
+   }
+   #unit_tag_Manager_dataTree li:nth-child(even){
+    background-color:#FFFFFF;
+   }
+  
+   ul#unit_tag_Manager_dataTree{
+    margin-top: 0px;
+    border: 0px solid #617775;
+   }
+   .set_tbn_padding_5px_tag_manager{
+       padding:5px;
+   }
+   .set_radio_padding_top_5px_tag_manager{
+    padding-top:5px;
+   }

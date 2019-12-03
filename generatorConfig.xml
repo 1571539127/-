@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+ <!--数据库驱动-->
+    <classPathEntry    location="D:\shiyi\apache-maven-3.5.3-bin\maven-repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+    <context id="mysql">
+         <!--设置去除自动生成的注释-->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接地址账号密码-->
+        <!--         在xml文件中 &符号 需要转义 这个根据 HTML 的转义规则 更改就行  & -> &amp; 于是便解决了 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/muban_blog_db?useUnicode=true&amp;characterEncoding=utf8" userId="muban_blog_user" password="bnm12345">
+        </jdbcConnection>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="com.lijp.muban.dao" targetProject="muban-mybatis/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        
+               <!--这个才是mapper.xml文件-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="muban-mybatis/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        
+             <!--生成mapper类存放位置-->
+<!--         <javaClientGenerator type="XMLMAPPER" targetPackage="com.lijp.muban.mapper" targetProject="muban-mybatis/src/main/java"> -->
+<!--             <property name="enableSubPackages" value="true"/> -->
+<!--         </javaClientGenerator> -->
+			<!-- 这是mapper接口文件 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lijp.muban.mapper" targetProject="muban-mybatis/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        
+        <!--生成对应表及类名-->
+ 
+        <table tableName="blog_user" domainObjectName="BlogUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="blog_category" domainObjectName="BlogCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="blog_article" domainObjectName="BlogArticle" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="category_article_ref" domainObjectName="BlogArticleRef" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    </context>
+</generatorConfiguration>

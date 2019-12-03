@@ -1,0 +1,214 @@
+body,
+button,
+input,
+select,
+textarea {
+    font: 14px "Microsoft YaHei", Helvetica, Arial, Lucida Grande, Tahoma, sans-serif;
+    color: #444;
+    /* 行高：行与行之间的高度 */
+    line-height: 180%;
+    background: #f1f1f1;
+}
+
+
+.clear {
+    clear: both;
+    display: block;
+}
+
+
+
+/** 主体 **/
+.post, #page .page, .bulletin,
+.single-picture .picture, .type-attachment,
+.single-tao .tao, .single-video .video {
+    position: relative;
+    background: #fff;
+    margin: 0 0 10px 0;
+    padding: 20px;
+    /* 设置边界 */
+    border: 1px solid #ddd;
+    /* 向 div 元素添加阴影： */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    /* 设置边界圆角 */
+    border-radius: 2px;
+}
+.thumbnail {
+    position: relative;
+    float: left;
+    max-width: 200px;
+    height: auto;
+    clear: both;
+    margin: 1px 20px 0 0;
+    /* 超出部分隐藏 */
+    overflow: hidden;
+    transition-duration: .5s;
+}
+
+.thumbnail a img {
+    float: left;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+
+.thumbnail .cat {
+    background: #c40000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: 0 0 rgba(216, 0, 0, 0.7);
+}
+
+.thumbnail .cat a {
+    color: #fff;
+    line-height: 28px;
+    padding: 0 10px;
+}
+/** 文章信息 **/
+.entry-meta {
+    position: absolute;
+    bottom: 14px;
+    color: #999;
+    left: 240px;
+}
+.entry-more a {
+    position: absolute;
+    bottom: 18px;
+    right: -1px;
+    background: #398898;
+    color: #fff;
+    line-height: 30px;
+    padding: 0 12px;
+    display: block;
+    border-radius: 2px 0 0 2px;
+}
+
+.entry-more a:hover {
+    background: #3e94a5;
+}
+/* 文章详情页 */
+.entry-header h1{
+    position: relative;
+    font-size: 20px;
+    font-size: 2.0rem;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    margin: 35px 0 0 0;
+    padding: 5px 0;
+}
+
+#respond {
+    background: #fff;
+    margin: 0 0 10px 0;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+.comment-list li {
+    position: relative;
+    background: #fff;
+    margin: 0 0 10px 0;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.vcard .avatar {
+    float: left;
+    width: 64px;
+    height: 64px;
+    margin: 7px 10px 0 0;
+    border-radius: 5px;
+    transition: all .8s ease 0s;
+}
+
+.reply a {
+    background: #fff;
+    line-height: 25px;
+    display: block;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+.reply {
+    display: none;
+}
+.reply {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+}
+  .comment-body:hover .reply {
+        display: inline;
+        animation: fade-in;
+        animation-duration: 0.2s;
+        -webkit-animation: fade-in 0.2s;
+    }
+.reply a {
+    background: #fff;
+    line-height: 25px;
+    display: block;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+.reply a:hover {
+    background: #009688;
+    color: #fff;
+    border: 1px solid #009688;
+    transition: all 0.2s ease-in 0s;
+}
+
+#cancel-comment-reply-link {
+    display: none;
+}
+.archive-content {
+/*     color: #777; */
+/*     overflow-x: hidden; */
+/*       display: -webkit-box;     弹性盒旧式语法 */
+/*   -webkit-box-orient: vertical;    经过个人实测，vertical或horizontal都没问题，只是必须设置该属性 */
+/*   -webkit-line-clamp: 2;    限制两行 */
+/*   overflow: hidden; */
+}
+/* 统计数 */
+#sidebar h3 {
+    background: #f8f8f8;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+.widget {
+    background: #fff;
+    margin: 0 0 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+#advert_widget, .php_text .widget-text {
+    padding: 3px;
+}
+.widget ul, #sidebar #searchform, #searchform1, #calendar_wrap, .tagcloud {
+    padding: 15px;
+}
+.widget ul li {
+    width: 99%;
+    line-height: 28px;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.comment-body{
+      margin: 0 0 10px 0;
+}
+.comment li {
+	border: 1px solid #ddd;
+}

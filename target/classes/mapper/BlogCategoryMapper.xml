@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lijp.muban.mapper.BlogCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.lijp.muban.dao.BlogCategory">
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_describe" jdbcType="VARCHAR" property="categoryDescribe" />
+    <result column="category_parent_id" jdbcType="DECIMAL" property="categoryParentId" />
+    <result column="category_createtime" jdbcType="TIMESTAMP" property="categoryCreatetime" />
+    <result column="category_updatetime" jdbcType="TIMESTAMP" property="categoryUpdatetime" />
+    
+    <association column="category_parent_id" javaType="com.lijp.muban.dao.BlogCategory" property="categoryParentId"  >
+	<id property="category_id" column="pcategoryId" />
+	<result property="category_name" column="pcategoryName" />
+	</association>
+  </resultMap>
+  
+    <resultMap id="AllResultMap" type="com.lijp.muban.dao.BlogCategory">
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_describe" jdbcType="VARCHAR" property="categoryDescribe" />
+    <result column="category_parent_id" jdbcType="DECIMAL" property="categoryParentId" />
+    <result column="category_createtime" jdbcType="TIMESTAMP" property="categoryCreatetime" />
+    </resultMap>
+  <sql id="Base_Column_List">
+    category_id, category_name, category_describe, category_parent_id, category_createtime, 
+    category_updatetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="AllResultMap">
+    select * from blog_category
+    <where>
+    <if test="categoryId !=null and categoryId !=''">category_id = #{categoryId,jdbcType=INTEGER}</if>
+    <if test="categoryParentId !=null ">and category_parent_id = #{categoryParentId,jdbcType=INTEGER}</if>
+    </where>
+     
+  </select>
+<!--   自关联 -->
+<!--   <select id="selectJoin" parameterType="java.lang.Integer" resultMap="BaseResultMap"> -->
+<!--     select * from blog_category a left join blog_category b on a.category_id=b.category_parent_id -->
+<!--     <where> -->
+<!--     <if test="categoryId !=null and categoryId !=''">category_id = #{categoryId,jdbcType=INTEGER}</if> -->
+<!--     <if test="categoryParentId !=null ">and category_parent_id = #{categoryParentId,jdbcType=INTEGER}</if> -->
+<!--     </where> -->
+<!--   </select> -->
+<!--   查询二级分类 -->
+  <select id="selectSecond" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from blog_category a inner join blog_category b  on a.category_id=b.category_parent_id
+    <where><if test="categoryId !=null and categoryId !=''">category_d=#{categoryId}</if></where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lijp.muban.dao.BlogCategory">
+    insert into blog_category (category_id, category_name, category_describe, 
+      category_parent_id, category_createtime, 
+      category_updatetime)
+    values (#{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{categoryDescribe,jdbcType=VARCHAR}, 
+      #{categoryParentId,jdbcType=DECIMAL}, #{categoryCreatetime,jdbcType=TIMESTAMP}, 
+      #{categoryUpdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lijp.muban.dao.BlogCategory">
+    insert into blog_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="categoryName != null">
+        category_name,
+      </if>
+      <if test="categoryDescribe != null">
+        category_describe,
+      </if>
+      <if test="categoryParentId != null">
+        category_parent_id,
+      </if>
+      <if test="categoryCreatetime != null">
+        category_createtime,
+      </if>
+      <if test="categoryUpdatetime != null">
+        category_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryName != null">
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryDescribe != null">
+        #{categoryDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryParentId != null">
+        #{categoryParentId,jdbcType=DECIMAL},
+      </if>
+      <if test="categoryCreatetime != null">
+        #{categoryCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryUpdatetime != null">
+        #{categoryUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lijp.muban.dao.BlogCategory">
+    update blog_category
+    <set>
+      <if test="categoryName != null">
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryDescribe != null">
+        category_describe = #{categoryDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryParentId != null">
+        category_parent_id = #{categoryParentId,jdbcType=DECIMAL},
+      </if>
+      <if test="categoryCreatetime != null">
+        category_createtime = #{categoryCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryUpdatetime != null">
+        category_updatetime = #{categoryUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lijp.muban.dao.BlogCategory">
+    update blog_category
+    set category_name = #{categoryName,jdbcType=VARCHAR},
+      category_describe = #{categoryDescribe,jdbcType=VARCHAR},
+      category_parent_id = #{categoryParentId,jdbcType=DECIMAL},
+      category_createtime = #{categoryCreatetime,jdbcType=TIMESTAMP},
+      category_updatetime = #{categoryUpdatetime,jdbcType=TIMESTAMP}
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+  
+    <select id="countCategory" resultType="java.lang.Integer">select count(*) from blog_category</select>
+</mapper>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lijp.muban.mapper.BlogArticleMapper">
+  <resultMap id="BaseResultMap" type="com.lijp.muban.dao.BlogArticle">
+    <id column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="article_author_name" jdbcType="VARCHAR" property="articleAuthorName" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
+    <result column="article_state" jdbcType="VARCHAR" property="articleState" />
+    <result column="article_createtime" jdbcType="TIMESTAMP" property="articleCreatetime" />
+    <result column="article_updatetime" jdbcType="TIMESTAMP" property="articleUpdatetime" />
+  </resultMap>
+  
+  
+  <resultMap id="manyResultMap" type="com.lijp.muban.dao.BlogArticle">
+    <id column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="article_author_name" jdbcType="VARCHAR" property="articleAuthorName" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
+    <result column="article_state" jdbcType="VARCHAR" property="articleState" />
+    <result column="article_createtime" jdbcType="TIMESTAMP" property="articleCreatetime" />
+    <result column="article_updatetime" jdbcType="TIMESTAMP" property="articleUpdatetime" />
+    <collection property="blogArticleRefKey" ofType="com.lijp.muban.dao.BlogArticleRefKey" >
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"></result>
+        <result column="article_id" jdbcType="INTEGER" property="articleId"></result>
+        <association property="blogCategory" javaType="com.lijp.muban.dao.BlogCategory">
+          <id column="category_id" jdbcType="INTEGER" property="categoryId"></id>
+          <id column="category_name"  jdbcType="VARCHAR" property="categoryName"></id>
+        </association>
+    </collection>
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    article_id, user_id, article_author_name, article_title, article_content, article_state, 
+    article_createtime, article_updatetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_article
+    <where><if test="articleId !=null and articleId !=''">article_id = #{articleId,jdbcType=INTEGER}</if> </where> 
+     limit #{page},#{limit}
+  </select>
+  <select id="selectArticle" parameterType="com.lijp.muban.dao.BlogArticle" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from blog_article
+  <where>
+  <if test="articleId !=null and articleId !=''">article_id=#{articleId}</if>
+  <if test="articleAuthorName !=null and articleAuthorName !=''">article_author_name=#{articleAuthorName}</if>
+  <if test="articleTitle !=null and articleTitle !=''">article_title=#{articleTitle}</if>
+  <if test="articleContent !=null and articleContent !=''">article_title like concat(concat("%",#{articleContent}),"%")
+  </if>
+  </where>
+  </select>
+  
+<!--   前端展示文章 -->
+  <select id="selectHomeArticle" parameterType="com.lijp.muban.dao.BlogArticle" resultMap="BaseResultMap">
+select a.*,c.category_name from blog_article a inner join category_article_ref r on a.article_id=r.article_id
+inner join blog_category c on r.category_id=c.category_id 
+  <where>
+  <if test="articleId !=null and articleId !=''">article_id=#{articleId}</if>
+  <if test="articleAuthorName !=null and articleAuthorName !=''">article_author_name=#{articleAuthorName}</if>
+  <if test="articleTitle !=null and articleTitle !=''">article_title=#{articleTitle}</if>
+  <if test="articleContent !=null and articleContent !=''">article_title like concat(concat("%",#{articleContent}),"%")
+  </if>
+  </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_article
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="articleId" parameterType="com.lijp.muban.dao.BlogArticle" >
+    insert into blog_article ( user_id, article_author_name, 
+      article_title, article_content, article_state, 
+      article_createtime, article_updatetime
+      )
+    values ( #{userId,jdbcType=INTEGER}, #{articleAuthorName,jdbcType=VARCHAR}, 
+      #{articleTitle,jdbcType=VARCHAR}, #{articleContent,jdbcType=VARCHAR}, #{articleState,jdbcType=VARCHAR}, 
+      #{articleCreatetime,jdbcType=TIMESTAMP}, #{articleUpdatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lijp.muban.dao.BlogArticle" useGeneratedKeys="true" keyProperty="articleId">
+    insert into blog_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="articleAuthorName != null">
+        article_author_name,
+      </if>
+      <if test="articleTitle != null">
+        article_title,
+      </if>
+      <if test="articleContent != null">
+        article_content,
+      </if>
+      <if test="articleState != null">
+        article_state,
+      </if>
+      <if test="articleCreatetime != null">
+        article_createtime,
+      </if>
+      <if test="articleUpdatetime != null">
+        article_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="articleAuthorName != null">
+        #{articleAuthorName,jdbcType=VARCHAR},
+      </if>
+      <if test="articleTitle != null">
+        #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleContent != null">
+        #{articleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="articleState != null">
+        #{articleState,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCreatetime != null">
+        #{articleCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleUpdatetime != null">
+        #{articleUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lijp.muban.dao.BlogArticle">
+    update blog_article
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="articleAuthorName != null">
+        article_author_name = #{articleAuthorName,jdbcType=VARCHAR},
+      </if>
+      <if test="articleTitle != null">
+        article_title = #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleContent != null">
+        article_content = #{articleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="articleState != null">
+        article_state = #{articleState,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCreatetime != null">
+        article_createtime = #{articleCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleUpdatetime != null">
+        article_updatetime = #{articleUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lijp.muban.dao.BlogArticle">
+    update blog_article
+    set user_id = #{userId,jdbcType=INTEGER},
+      article_author_name = #{articleAuthorName,jdbcType=VARCHAR},
+      article_title = #{articleTitle,jdbcType=VARCHAR},
+      article_content = #{articleContent,jdbcType=VARCHAR},
+      article_state = #{articleState,jdbcType=VARCHAR},
+      article_createtime = #{articleCreatetime,jdbcType=TIMESTAMP},
+      article_updatetime = #{articleUpdatetime,jdbcType=TIMESTAMP}
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="countArticle" resultType="java.lang.Integer">select count(*) from blog_article</select>
+</mapper>
